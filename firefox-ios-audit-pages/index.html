@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>audit-kit Dashboard — Firefox-iOS</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #171e26;
+    --border: #26313d;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --accent: #38bdf8;
+    --accent-2: #818cf8;
+    --warn: #f59e0b;
+    --high: #ef4444;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 28px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 16px;
+  }
+  h1 { margin: 0; font-size: 22px; font-weight: 600; }
+  .meta { color: var(--muted); font-size: 13px; }
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .kpi-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi-val { font-size: 26px; font-weight: 600; margin-top: 6px; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .tab {
+    background: var(--card);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .tab.active {
+    background: var(--accent);
+    color: #0b1117;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  .card h2 { margin: 0 0 14px 0; font-size: 15px; font-weight: 600; color: var(--text); }
+  .bar-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 56px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 9px;
+    font-size: 13px;
+  }
+  .bar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+  .bar-track { background: #0f1419; border-radius: 999px; height: 9px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; }
+  .bar-val { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 500; font-size: 12px; text-transform: uppercase; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; word-break: break-word; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge-high { background: rgba(239, 68, 68, 0.16); color: #fca5a5; }
+  .badge-med { background: rgba(245, 158, 11, 0.16); color: #fcd34d; }
+  .empty { color: var(--muted); font-size: 13px; margin: 4px 0; }
+  pre.timing {
+    background: #0f1419;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    overflow-x: auto;
+    font-size: 12px;
+    margin: 0;
+  }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>iOS Architecture Diagnostic — Firefox-iOS</h1>
+      <div class="meta">Repo: <code>firefox-ios-90d</code> · Generated: 2026-11-16 08:41:38 UTC</div>
+    </div>
+    <div class="meta">Proprietary audit-kit Telemetry</div>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><div class="kpi-label">Swift Files</div><div class="kpi-val">3,363</div></div>
+    <div class="kpi"><div class="kpi-label">SPM + Xcode Targets</div><div class="kpi-val">95</div></div>
+    <div class="kpi"><div class="kpi-label">SwiftUI Flags</div><div class="kpi-val">3</div></div>
+    <div class="kpi"><div class="kpi-label">Risk Flags</div><div class="kpi-val">46</div></div>
+    <div class="kpi"><div class="kpi-label">Test / Source Ratio</div><div class="kpi-val">0.56</div></div>
+    <div class="kpi"><div class="kpi-label">Swift 6 Warnings</div><div class="kpi-val">18</div></div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab active" onclick="showTab('painpoints', this)">Pain Points &amp; Risks</button>
+    <button class="tab" onclick="showTab('topology', this)">Module Topology</button>
+    <button class="tab" onclick="showTab('swiftui', this)">SwiftUI Hotspots (185 files)</button>
+    <button class="tab" onclick="showTab('concurrency', this)">Swift 6 &amp; Build Timing</button>
+  </nav>
+
+  <section id="tab-painpoints" class="panel active">
+    <div class="grid-2">
+      <div class="card">
+        <h2>Git Churn × File Size Hotspots (90d Score)</h2>
+        
+        <div class="bar-row"><div class="bar-label" title="Strings.swift">Strings.swift</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--high)"></div></div><div class="bar-val">355536</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserViewController.swift">BrowserViewController.swift</div><div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--high)"></div></div><div class="bar-val">266000</div></div>
+<div class="bar-row"><div class="bar-label" title="Metrics.swift">Metrics.swift</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--high)"></div></div><div class="bar-val">71336</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserCoordinator.swift">BrowserCoordinator.swift</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--high)"></div></div><div class="bar-val">61380</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserCoordinatorTests.swift">BrowserCoordinatorTests.swift</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--high)"></div></div><div class="bar-val">51792</div></div>
+<div class="bar-row"><div class="bar-label" title="ads_client.swift">ads_client.swift</div><div class="bar-track"><div class="bar-fill" style="width:9%;background:var(--high)"></div></div><div class="bar-val">34200</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserViewController+WebViewDelegates.swift">BrowserViewController+WebViewDelegates.swift</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--high)"></div></div><div class="bar-val">31446</div></div>
+<div class="bar-row"><div class="bar-label" title="TranslationsMiddlewareTests.swift">TranslationsMiddlewareTests.swift</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--high)"></div></div><div class="bar-val">31104</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserScreen.swift">BrowserScreen.swift</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--high)"></div></div><div class="bar-val">27782</div></div>
+<div class="bar-row"><div class="bar-label" title="SearchTest.swift">SearchTest.swift</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--high)"></div></div><div class="bar-val">25586</div></div>
+      </div>
+      <div class="card">
+        <h2>SPM Modules Missing Test Targets</h2>
+        <table><thead><tr><th>Package</th><th>Module Missing Test Target</th></tr></thead><tbody><tr><td class="mono">BrowserKit</td><td class="mono">Shared</td></tr><tr><td class="mono">BrowserKit</td><td class="mono">TestKit</td></tr><tr><td class="mono">BrowserKit</td><td class="mono">UnifiedSearchKit</td></tr><tr><td class="mono">MozillaRustComponentsSwift</td><td class="mono">MozillaAppServices</td></tr><tr><td class="mono">MozillaRustComponentsSwift</td><td class="mono">FocusAppServices</td></tr><tr><td class="mono">Danger</td><td class="mono">DangerDependencies</td></tr><tr><td class="mono">Focus</td><td class="mono">UIComponents</td></tr><tr><td class="mono">Focus</td><td class="mono">UIHelpers</td></tr><tr><td class="mono">Focus</td><td class="mono">DesignSystem</td></tr><tr><td class="mono">Focus</td><td class="mono">Onboarding</td></tr><tr><td class="mono">Focus</td><td class="mono">AppShortcuts</td></tr><tr><td class="mono">Focus</td><td class="mono">Licenses</td></tr></tbody></table>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Retain-Cycle &amp; Main-Thread Blocking Risks</h2>
+      <table><thead><tr><th>Severity</th><th>Rule</th><th>Location</th><th>Detail</th></tr></thead><tbody><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">BrowserKit/Sources/ContentBlockingGenerator/JsonHelper.swift:12</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">BrowserKit/Sources/ContentBlockingGenerator/JsonHelper.swift:26</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">BrowserKit/Sources/SiteImageView/FaviconURLProcessing/Cache/URLCacheFileManager.swift:24</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">BrowserKit/Sources/TabDataStore/TabFileManager.swift:152</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">BrowserKit/Sources/TabDataStore/TabSessionStore.swift:70</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">MozillaRustComponents/Sources/FocusRustComponentsWrapper/Nimbus/Operation+.swift:16</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">MozillaRustComponents/Sources/MozillaRustComponentsWrapper/Nimbus/Operation+.swift:16</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/Application/RemoteSettings/RemoteDataType.swift:78</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/Frontend/Browser/SearchEngines/SearchEnginesManager.swift:390</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">firefox-ios/Client/Frontend/Browser/Tabs/Views/RemoteTabsViewController.swift:462</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">firefox-ios/Client/Frontend/ContextualHint/ContextualHintViewProvider.swift:90</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/Frontend/Reader/SchemeHandler/ReaderFileRoute.swift:42</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">firefox-ios/Client/Frontend/Settings/SettingsContentViewController.swift:84</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/Frontend/Translations/SchemeHandler/StaticFileRoute.swift:19</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/TabManagement/Tab+ChangeUserAgent.swift:109</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/TabManagement/TabGroupStorage.swift:49</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/TabManagement/TabGroupStorage.swift:55</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/TabManagement/TabGroupStorage.swift:58</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/TabManagement/TabGroupStorage.swift:67</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Client/Utils/CuratedRecommendationCacheUtility.swift:92</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">firefox-ios/Providers/RustSyncManager.swift:107</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">firefox-ios/Providers/RustSyncManager.swift:729</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/RustFxA/FxAWebViewModel.swift:282</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Storage/DiskImageStore.swift:76</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Storage/ZoomLevelStore.swift:111</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">firefox-ios/Storage/ZoomLevelStore.swift:117</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/Blockzilla/Modules/WebView/LegacyWebViewController.swift:541</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/Blockzilla/ProfileIdentifier.swift:69</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/Blockzilla/Search/OpenSearchParser.swift:27</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/Blockzilla/Search/OpenSearchParser.swift:121</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/Settings/Controller/SettingsContentViewController.swift:101</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/Blockzilla/Tracking Protection/TrackingProtectionPageStats.swift:137</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/Tracking Protection/TrackingProtectionViewController.swift:112</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/BrowserToolbar.swift:148</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/BrowserToolbar.swift:156</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/BrowserToolbar.swift:164</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/SplashViewController.swift:78</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/URLBar/URLBar.swift:626</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/URLBar/URLBar.swift:634</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/URLBar/URLBar.swift:642</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/URLBar/URLBar.swift:650</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/UIComponents/URLBar/URLBar.swift:666</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">potential-retain-cycle</td><td class="mono">focus-ios/Blockzilla/Utilities/Debouncer.swift:19</td><td>Observer/Timer/Combine sink closure in class without explicit [weak self] capture.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/Blockzilla/Utilities/LocalContentBlocker.swift:85</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/BlockzillaPackage/Sources/Licenses/LicenseListView.swift:52</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">sync-blocking-io</td><td class="mono">focus-ios/ContentBlocker/ActionRequestHandler.swift:35</td><td>Synchronous Data(contentsOf:) or Thread.sleep call; verify it never executes on the main actor.</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section id="tab-topology" class="panel">
+    <div class="grid-2">
+      <div class="card">
+        <h2>Top SPM Fan-Out Hubs (Dependents)</h2>
+        <div class="bar-row"><div class="bar-label" title="Common">Common</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><div class="bar-val">17</div></div>
+<div class="bar-row"><div class="bar-label" title="TestKit">TestKit</div><div class="bar-track"><div class="bar-fill" style="width:64%;background:var(--accent)"></div></div><div class="bar-val">11</div></div>
+<div class="bar-row"><div class="bar-label" title="AppAttestKit">AppAttestKit</div><div class="bar-track"><div class="bar-fill" style="width:52%;background:var(--accent)"></div></div><div class="bar-val">9</div></div>
+<div class="bar-row"><div class="bar-label" title="ComponentLibrary">ComponentLibrary</div><div class="bar-track"><div class="bar-fill" style="width:41%;background:var(--accent)"></div></div><div class="bar-val">7</div></div>
+<div class="bar-row"><div class="bar-label" title="Shared">Shared</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--accent)"></div></div><div class="bar-val">6</div></div>
+<div class="bar-row"><div class="bar-label" title="MLPAKit">MLPAKit</div><div class="bar-track"><div class="bar-fill" style="width:23%;background:var(--accent)"></div></div><div class="bar-val">4</div></div>
+<div class="bar-row"><div class="bar-label" title="SiteImageView">SiteImageView</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--accent)"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="LLMKit">LLMKit</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--accent)"></div></div><div class="bar-val">3</div></div>
+<div class="bar-row"><div class="bar-label" title="Redux">Redux</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:var(--accent)"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="JWTKit">JWTKit</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:var(--accent)"></div></div><div class="bar-val">2</div></div>
+      </div>
+      <div class="card">
+        <h2>Top Xcode Target / SDK Hubs (Dependents)</h2>
+        <div class="bar-row"><div class="bar-label" title="Shared (SPM)">Shared (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent-2)"></div></div><div class="bar-val">14</div></div>
+<div class="bar-row"><div class="bar-label" title="Common (SPM)">Common (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--accent-2)"></div></div><div class="bar-val">11</div></div>
+<div class="bar-row"><div class="bar-label" title="Client">Client</div><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--accent-2)"></div></div><div class="bar-val">11</div></div>
+<div class="bar-row"><div class="bar-label" title="Localizations">Localizations</div><div class="bar-track"><div class="bar-fill" style="width:71%;background:var(--accent-2)"></div></div><div class="bar-val">10</div></div>
+<div class="bar-row"><div class="bar-label" title="GCDWebServers (SPM)">GCDWebServers (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:64%;background:var(--accent-2)"></div></div><div class="bar-val">9</div></div>
+<div class="bar-row"><div class="bar-label" title="Sync">Sync</div><div class="bar-track"><div class="bar-fill" style="width:42%;background:var(--accent-2)"></div></div><div class="bar-val">6</div></div>
+<div class="bar-row"><div class="bar-label" title="SiteImageView (SPM)">SiteImageView (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--accent-2)"></div></div><div class="bar-val">5</div></div>
+<div class="bar-row"><div class="bar-label" title="Fuzi (SPM)">Fuzi (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--accent-2)"></div></div><div class="bar-val">5</div></div>
+<div class="bar-row"><div class="bar-label" title="Glean (SPM)">Glean (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--accent-2)"></div></div><div class="bar-val">4</div></div>
+<div class="bar-row"><div class="bar-label" title="Kingfisher (SPM)">Kingfisher (SPM)</div><div class="bar-track"><div class="bar-fill" style="width:21%;background:var(--accent-2)"></div></div><div class="bar-val">3</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Xcode Project Targets</h2>
+      <table><thead><tr><th>Project</th><th>Target</th><th>Type</th><th>Direct Deps</th></tr></thead><tbody><tr><td class="mono">SampleBrowser/SampleBrowser.xcodeproj</td><td class="mono">SampleBrowser</td><td>application</td><td>3</td></tr><tr><td class="mono">SampleComponentLibraryApp/SampleComponentLibraryApp.xcodeproj</td><td class="mono">SampleComponentLibraryApp</td><td>application</td><td>1</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">Client</td><td>application</td><td>33</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">ClientTests</td><td>unit-test</td><td>8</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">WidgetKitExtension</td><td>app-extension</td><td>7</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">Sync</td><td>framework</td><td>6</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">Storage</td><td>static</td><td>6</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">XCUITests</td><td>ui-testing</td><td>5</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">L10nSnapshotTests</td><td>ui-testing</td><td>5</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">CredentialProvider</td><td>app-extension</td><td>4</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">Localizations</td><td>framework</td><td>4</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">NotificationService</td><td>app-extension</td><td>4</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">ShareTo</td><td>app-extension</td><td>4</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">SyncTests</td><td>unit-test</td><td>4</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">SharedTests</td><td>unit-test</td><td>3</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">StorageTests</td><td>unit-test</td><td>3</td></tr><tr><td class="mono">firefox-ios/Client.xcodeproj</td><td class="mono">Account</td><td>static</td><td>3</td></tr><tr><td class="mono">firefox-ios/ThirdParty/Deferred/Deferred.xcodeproj</td><td class="mono">DeferredMacTests</td><td>unit-test</td><td>1</td></tr><tr><td class="mono">firefox-ios/ThirdParty/Deferred/Deferred.xcodeproj</td><td class="mono">DeferredMac</td><td>framework</td><td>0</td></tr><tr><td class="mono">firefox-ios/ThirdParty/Deferred/Deferred.xcodeproj</td><td class="mono">Deferred</td><td>framework</td><td>0</td></tr><tr><td class="mono">firefox-ios/ThirdParty/Deferred/Deferred.xcodeproj</td><td class="mono">DeferredTests</td><td>unit-test</td><td>0</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">Blockzilla</td><td>application</td><td>15</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">RustMozillaAppServices</td><td>framework</td><td>2</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">SnapshotTests</td><td>ui-testing</td><td>1</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">ClientTests</td><td>unit-test</td><td>1</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">XCUITest</td><td>ui-testing</td><td>1</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">FocusIntentExtension</td><td>app-extension</td><td>0</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">ContentBlocker</td><td>app-extension</td><td>0</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">ShareExtension</td><td>app-extension</td><td>0</td></tr><tr><td class="mono">focus-ios/Blockzilla.xcodeproj</td><td class="mono">WidgetsExtension</td><td>app-extension</td><td>0</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section id="tab-swiftui" class="panel">
+    <div class="card">
+      <h2>Largest SwiftUI View Files (Line Count)</h2>
+      <div class="bar-row"><div class="bar-label" title="AIBackgroundEffectView.swift">AIBackgroundEffectView.swift</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--warn)"></div></div><div class="bar-val">447</div></div>
+<div class="bar-row"><div class="bar-label" title="DownloadLiveActivity.swift">DownloadLiveActivity.swift</div><div class="bar-track"><div class="bar-fill" style="width:84%;background:var(--warn)"></div></div><div class="bar-val">379</div></div>
+<div class="bar-row"><div class="bar-label" title="CreditCardInputField.swift">CreditCardInputField.swift</div><div class="bar-track"><div class="bar-fill" style="width:70%;background:var(--warn)"></div></div><div class="bar-val">315</div></div>
+    </div>
+    <div class="card">
+      <h2>Flagged SwiftUI Anti-Patterns</h2>
+      <table><thead><tr><th>Severity</th><th>Rule</th><th>Location</th><th>Detail</th></tr></thead><tbody><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">inline-observed-object</td><td class="mono">focus-ios/Blockzilla/InternalSettings/InternalExperimentsSettingsView.swift:10</td><td>@ObservedObject initialized inline; use @StateObject or @State (@Observable) to prevent state loss on redraw.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">inline-observed-object</td><td class="mono">focus-ios/Blockzilla/InternalSettings/InternalOnboardingSettingsView.swift:8</td><td>@ObservedObject initialized inline; use @StateObject or @State (@Observable) to prevent state loss on redraw.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">inline-observed-object</td><td class="mono">focus-ios/Blockzilla/InternalSettings/InternalTelemetrySettingsView.swift:18</td><td>@ObservedObject initialized inline; use @StateObject or @State (@Observable) to prevent state loss on redraw.</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section id="tab-concurrency" class="panel">
+    <div class="card">
+      <h2>Swift 6 Strict Concurrency Warnings by File</h2>
+      <table><thead><tr><th>File</th><th>Warnings</th></tr></thead><tbody><tr><td class="mono">MozillaRustComponents/Sources/MozillaRustComponentsWrapper/Generated/viaduct.swift</td><td>18</td></tr></tbody></table>
+    </div>
+    <div class="card">
+      <h2>Build Timing Summary</h2>
+      <pre class="timing">SwiftCompile (349 tasks) | 860.883 seconds
+CompileAssetCatalogVariant (8 tasks) | 183.014 seconds
+CompileC (406 tasks) | 158.705 seconds
+SwiftDriver (47 tasks) | 108.673 seconds
+SwiftEmitModule (47 tasks) | 78.988 seconds
+Ld (70 tasks) | 38.142 seconds
+PhaseScriptExecution (13 tasks) | 29.748 seconds
+GenerateAssetSymbols (7 tasks) | 16.746 seconds
+ValidateEmbeddedBinary (6 tasks) | 13.624 seconds
+CompileStoryboard (1 task) | 11.473 seconds
+ExtractAppIntentsMetadata (46 tasks) | 11.084 seconds
+CopyStringsFile (7952 tasks) | 10.532 seconds
+Copy (267 tasks) | 5.115 seconds
+ScanDependencies (40 tasks) | 4.898 seconds
+IntentDefinitionCompile (2 tasks) | 3.642 seconds
+IntentDefinitionCodegen (2 tasks) | 3.592 seconds
+RegisterExecutionPolicyException (69 tasks) | 1.969 seconds
+GenerateTAPI (10 tasks) | 1.471 seconds
+CopySwiftLibs (1 task) | 1.187 seconds
+Libtool (2 tasks) | 1.175 seconds
+AppIntentsSSUTraining (9 tasks) | 0.960 seconds
+ProcessInfoPlistFile (29 tasks) | 0.755 seconds
+SwiftGeneratePch (5 tasks) | 0.654 seconds
+CompileXIB (1 task) | 0.504 seconds
+CpResource (131 tasks) | 0.482 seconds</pre>
+    </div>
+  </section>
+</div>
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
