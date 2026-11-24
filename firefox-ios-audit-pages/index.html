@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>audit-kit Dashboard — Firefox-iOS</title>
+<title>audit-kit Security &amp; Architecture Dashboard — Firefox-iOS</title>
 <style>
   :root {
     --bg: #0f1419;
@@ -40,7 +40,7 @@
   .meta { color: var(--muted); font-size: 13px; }
   .kpis {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
     gap: 14px;
     margin-bottom: 22px;
   }
@@ -50,6 +50,7 @@
     border-radius: 12px;
     padding: 16px;
   }
+  .kpi-sec { border-color: rgba(239, 68, 68, 0.45); }
   .kpi-label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
   .kpi-val { font-size: 26px; font-weight: 600; margin-top: 6px; }
   .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -126,43 +127,70 @@
 <div class="wrap">
   <header>
     <div>
-      <h1>iOS Architecture Diagnostic — Firefox-iOS</h1>
-      <div class="meta">Repo: <code>firefox-ios-90d</code> · Generated: 2026-11-16 08:41:38 UTC</div>
+      <h1>iOS Security Hygiene &amp; Architecture Diagnostic — Firefox-iOS</h1>
+      <div class="meta">Repo: <code>firefox-ios-90d</code> · Generated: 2026-11-24 19:45:36 UTC</div>
     </div>
-    <div class="meta">Proprietary audit-kit Telemetry</div>
+    <div class="meta">OWASP MASVS-Aligned · Proprietary audit-kit Telemetry</div>
   </header>
 
   <section class="kpis">
-    <div class="kpi"><div class="kpi-label">Swift Files</div><div class="kpi-val">3,363</div></div>
+    <div class="kpi kpi-sec"><div class="kpi-label">High Security Flags</div><div class="kpi-val">5</div></div>
+    <div class="kpi kpi-sec"><div class="kpi-label">Total Security Flags</div><div class="kpi-val">22</div></div>
+    <div class="kpi"><div class="kpi-label">Swift Files</div><div class="kpi-val">3,367</div></div>
     <div class="kpi"><div class="kpi-label">SPM + Xcode Targets</div><div class="kpi-val">95</div></div>
-    <div class="kpi"><div class="kpi-label">SwiftUI Flags</div><div class="kpi-val">3</div></div>
-    <div class="kpi"><div class="kpi-label">Risk Flags</div><div class="kpi-val">46</div></div>
+    <div class="kpi"><div class="kpi-label">Arch Risk Flags</div><div class="kpi-val">49</div></div>
     <div class="kpi"><div class="kpi-label">Test / Source Ratio</div><div class="kpi-val">0.56</div></div>
-    <div class="kpi"><div class="kpi-label">Swift 6 Warnings</div><div class="kpi-val">18</div></div>
+    <div class="kpi"><div class="kpi-label">Swift 6 Warnings</div><div class="kpi-val">N/A</div></div>
   </section>
 
   <nav class="tabs">
-    <button class="tab active" onclick="showTab('painpoints', this)">Pain Points &amp; Risks</button>
+    <button class="tab active" onclick="showTab('security', this)">Security Hygiene (22)</button>
+    <button class="tab" onclick="showTab('painpoints', this)">Churn &amp; Runtime Risks</button>
     <button class="tab" onclick="showTab('topology', this)">Module Topology</button>
-    <button class="tab" onclick="showTab('swiftui', this)">SwiftUI Hotspots (185 files)</button>
+    <button class="tab" onclick="showTab('swiftui', this)">SwiftUI (185 files)</button>
     <button class="tab" onclick="showTab('concurrency', this)">Swift 6 &amp; Build Timing</button>
   </nav>
 
-  <section id="tab-painpoints" class="panel active">
+  <section id="tab-security" class="panel active">
+    <div class="grid-2">
+      <div class="card">
+        <h2>Exposures by OWASP MASVS Category</h2>
+        <div class="bar-row"><div class="bar-label" title="MASVS-NETWORK">MASVS-NETWORK</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--high)"></div></div><div class="bar-val">18</div></div>
+<div class="bar-row"><div class="bar-label" title="MASVS-AUTH">MASVS-AUTH</div><div class="bar-track"><div class="bar-fill" style="width:11%;background:var(--high)"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="MASVS-STORAGE">MASVS-STORAGE</div><div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--high)"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="MASVS-CRYPTO">MASVS-CRYPTO</div><div class="bar-track"><div class="bar-fill" style="width:5%;background:var(--high)"></div></div><div class="bar-val">1</div></div>
+      </div>
+      <div class="card">
+        <h2>Top Flagged Security Rules</h2>
+        <div class="bar-row"><div class="bar-label" title="plaintext-http-url">plaintext-http-url</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--warn)"></div></div><div class="bar-val">14</div></div>
+<div class="bar-row"><div class="bar-label" title="tls-trust-override">tls-trust-override</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--warn)"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="ats-arbitrary-loads">ats-arbitrary-loads</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--warn)"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="biometric-without-keychain-acl">biometric-without-keychain-acl</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--warn)"></div></div><div class="bar-val">2</div></div>
+<div class="bar-row"><div class="bar-label" title="userdefaults-sensitive-data">userdefaults-sensitive-data</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--warn)"></div></div><div class="bar-val">1</div></div>
+<div class="bar-row"><div class="bar-label" title="weak-crypto-algorithm">weak-crypto-algorithm</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--warn)"></div></div><div class="bar-val">1</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Security Hygiene Findings (Static Exposure Review)</h2>
+      <table><thead><tr><th>Severity</th><th>MASVS</th><th>Rule</th><th>Location</th><th>Detail</th></tr></thead><tbody><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">tls-trust-override</td><td class="mono">firefox-ios/Client/Frontend/Browser/BrowserViewController/Extensions/BrowserViewController+WebViewDelegates.swift:1718</td><td>Custom URLCredential(trust:) inside URLSession challenge; verify strict certificate/pin validation.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">tls-trust-override</td><td class="mono">firefox-ios/Client/Frontend/TrackingProtection/CertificatesHelpers/CertificatesFetcher.swift:129</td><td>Custom URLCredential(trust:) inside URLSession challenge; verify strict certificate/pin validation.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">ats-arbitrary-loads</td><td class="mono">firefox-ios/Client/Info.plist:1</td><td>NSAllowsArbitraryLoads is enabled in Info.plist; permits cleartext HTTP across the app.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">ats-arbitrary-loads</td><td class="mono">focus-ios/Blockzilla/Info.plist:1</td><td>NSAllowsArbitraryLoads is enabled in Info.plist; permits cleartext HTTP across the app.</td></tr><tr><td><span class="badge badge-high">HIGH</span></td><td class="mono">MASVS-STORAGE</td><td class="mono">userdefaults-sensitive-data</td><td class="mono">firefox-ios/Client/Frontend/Browser/TopTabDisplayManager.swift:245</td><td>Potential token/credential stored in UserDefaults; migrate to Keychain with appropriate accessibility.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-AUTH</td><td class="mono">biometric-without-keychain-acl</td><td class="mono">firefox-ios/Client/Frontend/AuthenticationManager/AppAuthenticator.swift:86</td><td>LAContext.evaluatePolicy used without SecAccessControl; boolean auth checks can be bypassed at runtime.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-AUTH</td><td class="mono">biometric-without-keychain-acl</td><td class="mono">focus-ios/Blockzilla/Utilities/AuthenticationManager.swift:37</td><td>LAContext.evaluatePolicy used without SecAccessControl; boolean auth checks can be bypassed at runtime.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-CRYPTO</td><td class="mono">weak-crypto-algorithm</td><td class="mono">BrowserKit/Sources/Common/Extensions/DataExtension.swift:12</td><td>Legacy MD5/SHA1/DES/3DES primitive detected; migrate to CryptoKit (SHA256/AES.GCM).</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">BrowserKit/Sources/ActionExtensionKit/FirefoxURLBuilding.swift:138</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">BrowserKit/Sources/WebEngine/Utilities/URLFormatter.swift:54</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">BrowserKit/Sources/WebEngine/Utilities/URLFormatter.swift:55</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">BrowserKit/Sources/WebEngine/Utilities/URLFormatter.swift:134</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">BrowserKit/Sources/WebEngine/Utilities/URLFormatter.swift:145</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Client/Frontend/Autofill/LoginAutofillView.swift:55</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Client/Frontend/Autofill/LoginListView.swift:57</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Client/Frontend/Browser/URIFixup.swift:39</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Client/Frontend/Library/Reader/ReaderPanel.swift:37</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Storage/DefaultSuggestedSites.swift:88</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Storage/DefaultSuggestedSites.swift:94</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Storage/DefaultSuggestedSites.swift:100</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">firefox-ios/Storage/DefaultSuggestedSites.swift:118</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr><tr><td><span class="badge badge-med">MEDIUM</span></td><td class="mono">MASVS-NETWORK</td><td class="mono">plaintext-http-url</td><td class="mono">focus-ios/Blockzilla/Utilities/URIFixup.swift:55</td><td>Plaintext http:// URL literal detected; upgrade endpoint to HTTPS.</td></tr></tbody></table>
+    </div>
+  </section>
+
+  <section id="tab-painpoints" class="panel">
     <div class="grid-2">
       <div class="card">
         <h2>Git Churn × File Size Hotspots (90d Score)</h2>
         
-        <div class="bar-row"><div class="bar-label" title="Strings.swift">Strings.swift</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--high)"></div></div><div class="bar-val">355536</div></div>
-<div class="bar-row"><div class="bar-label" title="BrowserViewController.swift">BrowserViewController.swift</div><div class="bar-track"><div class="bar-fill" style="width:74%;background:var(--high)"></div></div><div class="bar-val">266000</div></div>
-<div class="bar-row"><div class="bar-label" title="Metrics.swift">Metrics.swift</div><div class="bar-track"><div class="bar-fill" style="width:20%;background:var(--high)"></div></div><div class="bar-val">71336</div></div>
-<div class="bar-row"><div class="bar-label" title="BrowserCoordinator.swift">BrowserCoordinator.swift</div><div class="bar-track"><div class="bar-fill" style="width:17%;background:var(--high)"></div></div><div class="bar-val">61380</div></div>
-<div class="bar-row"><div class="bar-label" title="BrowserCoordinatorTests.swift">BrowserCoordinatorTests.swift</div><div class="bar-track"><div class="bar-fill" style="width:14%;background:var(--high)"></div></div><div class="bar-val">51792</div></div>
-<div class="bar-row"><div class="bar-label" title="ads_client.swift">ads_client.swift</div><div class="bar-track"><div class="bar-fill" style="width:9%;background:var(--high)"></div></div><div class="bar-val">34200</div></div>
-<div class="bar-row"><div class="bar-label" title="BrowserViewController+WebViewDelegates.swift">BrowserViewController+WebViewDelegates.swift</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--high)"></div></div><div class="bar-val">31446</div></div>
-<div class="bar-row"><div class="bar-label" title="TranslationsMiddlewareTests.swift">TranslationsMiddlewareTests.swift</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--high)"></div></div><div class="bar-val">31104</div></div>
-<div class="bar-row"><div class="bar-label" title="BrowserScreen.swift">BrowserScreen.swift</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--high)"></div></div><div class="bar-val">27782</div></div>
-<div class="bar-row"><div class="bar-label" title="SearchTest.swift">SearchTest.swift</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--high)"></div></div><div class="bar-val">25586</div></div>
+        <div class="bar-row"><div class="bar-label" title="Strings.swift">Strings.swift</div><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--high)"></div></div><div class="bar-val">296280</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserViewController.swift">BrowserViewController.swift</div><div class="bar-track"><div class="bar-fill" style="width:80%;background:var(--high)"></div></div><div class="bar-val">239400</div></div>
+<div class="bar-row"><div class="bar-label" title="Metrics.swift">Metrics.swift</div><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--high)"></div></div><div class="bar-val">57840</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserCoordinator.swift">BrowserCoordinator.swift</div><div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--high)"></div></div><div class="bar-val">53940</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserCoordinatorTests.swift">BrowserCoordinatorTests.swift</div><div class="bar-track"><div class="bar-fill" style="width:16%;background:var(--high)"></div></div><div class="bar-val">47476</div></div>
+<div class="bar-row"><div class="bar-label" title="ads_client.swift">ads_client.swift</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--high)"></div></div><div class="bar-val">30780</div></div>
+<div class="bar-row"><div class="bar-label" title="ads_client.swift">ads_client.swift</div><div class="bar-track"><div class="bar-fill" style="width:10%;background:var(--high)"></div></div><div class="bar-val">30780</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserScreen.swift">BrowserScreen.swift</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--high)"></div></div><div class="bar-val">24908</div></div>
+<div class="bar-row"><div class="bar-label" title="BrowserViewController+WebViewDelegates.swift">BrowserViewController+WebViewDelegates.swift</div><div class="bar-track"><div class="bar-fill" style="width:8%;background:var(--high)"></div></div><div class="bar-val">24458</div></div>
+<div class="bar-row"><div class="bar-label" title="TranslationsMiddlewareTests.swift">TranslationsMiddlewareTests.swift</div><div class="bar-track"><div class="bar-fill" style="width:7%;background:var(--high)"></div></div><div class="bar-val">23328</div></div>
       </div>
       <div class="card">
         <h2>SPM Modules Missing Test Targets</h2>
@@ -226,35 +254,11 @@
   <section id="tab-concurrency" class="panel">
     <div class="card">
       <h2>Swift 6 Strict Concurrency Warnings by File</h2>
-      <table><thead><tr><th>File</th><th>Warnings</th></tr></thead><tbody><tr><td class="mono">MozillaRustComponents/Sources/MozillaRustComponentsWrapper/Generated/viaduct.swift</td><td>18</td></tr></tbody></table>
+      <p class="empty">Run with <code>--run-build --scheme &lt;Scheme&gt;</code> on macOS to capture Swift 6 concurrency warnings.</p>
     </div>
     <div class="card">
       <h2>Build Timing Summary</h2>
-      <pre class="timing">SwiftCompile (349 tasks) | 860.883 seconds
-CompileAssetCatalogVariant (8 tasks) | 183.014 seconds
-CompileC (406 tasks) | 158.705 seconds
-SwiftDriver (47 tasks) | 108.673 seconds
-SwiftEmitModule (47 tasks) | 78.988 seconds
-Ld (70 tasks) | 38.142 seconds
-PhaseScriptExecution (13 tasks) | 29.748 seconds
-GenerateAssetSymbols (7 tasks) | 16.746 seconds
-ValidateEmbeddedBinary (6 tasks) | 13.624 seconds
-CompileStoryboard (1 task) | 11.473 seconds
-ExtractAppIntentsMetadata (46 tasks) | 11.084 seconds
-CopyStringsFile (7952 tasks) | 10.532 seconds
-Copy (267 tasks) | 5.115 seconds
-ScanDependencies (40 tasks) | 4.898 seconds
-IntentDefinitionCompile (2 tasks) | 3.642 seconds
-IntentDefinitionCodegen (2 tasks) | 3.592 seconds
-RegisterExecutionPolicyException (69 tasks) | 1.969 seconds
-GenerateTAPI (10 tasks) | 1.471 seconds
-CopySwiftLibs (1 task) | 1.187 seconds
-Libtool (2 tasks) | 1.175 seconds
-AppIntentsSSUTraining (9 tasks) | 0.960 seconds
-ProcessInfoPlistFile (29 tasks) | 0.755 seconds
-SwiftGeneratePch (5 tasks) | 0.654 seconds
-CompileXIB (1 task) | 0.504 seconds
-CpResource (131 tasks) | 0.482 seconds</pre>
+      <p class="empty">Build timing not captured.</p>
     </div>
   </section>
 </div>
